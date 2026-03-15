@@ -1,0 +1,52 @@
+{
+  "name": "Existing Docker Compose (Extend)",
+  "dockerComposeFile": ["../compose.yml"],
+  "service": "app",
+  "workspaceFolder": "/app",
+  "shutdownAction": "stopCompose",
+  "overrideCommand": true,
+  "customizations": {
+    "vscode": {
+      // vscodeの設定に書き込みたい内容と同様のものを書く
+      "settings": {
+        // Pythonのデフォルトのインタプリタパス
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "black-formatter.args": [
+            "--line-length", "120"
+        ],
+        "[python]": {
+          "editor.defaultFormatter": "ms-python.black-formatter",
+          "editor.formatOnSave": true
+        },
+        "workbench.colorCustomizations": {
+          "editorIndentGuide.background1": "#b22222",
+          "editorIndentGuide.background2": "#ff4500",
+          "editorIndentGuide.background3": "#ffd700",
+          "editorIndentGuide.background4": "#228b22",
+          "editorIndentGuide.background5": "#000080",
+          "editorIndentGuide.background6": "#8b008b",
+          "editorIndentGuide.activeBackground1": "#fff",
+          "editorIndentGuide.activeBackground2": "#fff",
+          "editorIndentGuide.activeBackground3": "#fff",
+          "editorIndentGuide.activeBackground4": "#fff",
+          "editorIndentGuide.activeBackground5": "#fff",
+          "editorIndentGuide.activeBackground6": "#fff"
+        },
+        "python.testing.pytestArgs": [
+          "tests",
+          "-vv", // 詳細結果の出力
+          "-s" // print文の出力
+        ],
+        "plantuml.render": "PlantUMLServer",
+        "plantuml.server": "http://plantuml-server:8080"
+      },
+      "extensions": [
+        // python関連
+        "ms-python.python",
+        "ms-python.black-formatter",
+        "njpwerner.autodocstrin",
+        "ms-python.mypy-type-checker"
+      ]
+    }
+  }
+}

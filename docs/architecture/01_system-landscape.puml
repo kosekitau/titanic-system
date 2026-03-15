@@ -1,0 +1,26 @@
+@startuml name
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+title システムランドスケープ図
+
+Person(user, "業務ユーザー", "タイタニックの生存確認をしたい人")
+Person(admin, "システム管理者", "システムの管理・運用をする人")
+
+Enterprise_Boundary(org, "組織") {
+    System(report_system, "帳票出力システム", "PDF生成・メール通知を提供")
+    System(core_system, "基幹システム", "売上・顧客・在庫などの業務データを管理")
+    System(auth, "認証基盤", "シングルサインオン・ユーザー管理を提供")
+}
+
+System_Ext(email, "メールサービス", "Amazon SES")
+
+Rel(user, report_system, "帳票出力")
+Rel(user, core_system, "業務データ入力・参照")
+Rel(admin, auth, "ユーザー管理")
+
+Rel(report_system, auth, "認証")
+Rel(core_system, auth, "認証")
+Rel(report_system, core_system, "業務データ取得")
+Rel(report_system, email, "メール送信")
+
+@enduml
