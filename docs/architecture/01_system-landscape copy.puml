@@ -1,8 +1,5 @@
 @startuml name
-' https://github.com/davidholsgrove/gcp-icons-for-plantuml
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
-!define GCPPuml https://raw.githubusercontent.com/davidholsgrove/gcp-icons-for-plantuml/master/dist
-!includeurl GCPPuml/GCPCommon.puml
 
 title システムランドスケープ図
 
@@ -15,14 +12,12 @@ Boundary(org, "GCP") {
     System(db, "データベース", "入力されたデータを保存する")
 }
 
-' System_Ext(email, "メールサービス", "Amazon SES")
-
 Rel(user, input_system, "データ入力")
 Rel(admin, ai_system, "AIのアップロード")
 Rel(input_system, user, "分類結果の表示")
 
 Rel(input_system, ai_system, "データ送信")
 Rel(ai_system, input_system, "分類結果送信")
-Rel(ai_system, db, "入力データの保存")
+Rel(input_system, db, "入力データの保存")
 
 @enduml

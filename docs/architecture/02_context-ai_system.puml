@@ -1,0 +1,19 @@
+@startuml ai_system-context
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+title AIシステムのコンテキスト図
+
+Person(admin, "システム管理者", "システムの管理・運用をする人")
+
+Boundary(org, "GCP") {
+    System(input_system, "入力システム", "ユーザの入力を受け付ける")
+    System(ai_system, "生存判定システム", "AIが生存するか分類")
+}
+
+
+Rel(admin, ai_system, "AIのアップロード")
+
+Rel(input_system, ai_system, "データ送信", "HTTPS")
+Rel(ai_system, input_system, "分類結果送信", "HTTPS")
+
+@enduml

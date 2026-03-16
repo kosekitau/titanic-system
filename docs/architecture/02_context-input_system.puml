@@ -1,0 +1,23 @@
+@startuml input_system_context
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+title 入力システムのコンテキスト図
+
+Person(user, "ユーザー", "タイタニックの生存確認をしたい人")
+
+Boundary(org, "GCP") {
+    System(input_system, "入力システム", "乗員の情報を基本入力する")
+    System(ai_system, "生存判定システム", "AIが生存するか分類")
+    System(db, "データベース", "入力されたデータを保存する")
+}
+
+
+Rel(user, input_system, "データ入力", "HTTPS")
+Rel(input_system, user, "分類結果の表示", "HTTPS")
+
+Rel(input_system, ai_system, "データ送信", "HTTPS")
+Rel(ai_system, input_system, "分類結果送信", "HTTPS")
+Rel(input_system, db, "入力データの保存")
+
+@enduml

@@ -1,0 +1,15 @@
+@startuml db_context
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+title DBのコンテキスト図
+
+
+Boundary(org, "GCP") {
+    System(input_system, "入力システム", "ユーザの入力を受け付ける")
+    System(db, "データベース", "入力されたデータを保存する")
+}
+
+Rel(input_system, db, "入力データの保存")
+
+
+@enduml
