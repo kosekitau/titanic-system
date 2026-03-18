@@ -1,0 +1,16 @@
+@startuml context-input_system
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+title 入力システムのコンテナ図
+
+Person(user, "ユーザー", "タイタニックの生存確認をしたい人")
+
+System_Boundary(input_system, "インプットシステム") {
+    Container(frontend, "フロントエンド", "Jinja2")
+}
+
+Rel(user, frontend, "データ入力", "HTTPS")
+Rel(frontend, user, "分類結果の表示", "HTTPS")
+
+@enduml
