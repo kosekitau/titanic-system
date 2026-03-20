@@ -4,3 +4,17 @@ services:
     ports:
       - "8080:8080"
     restart: always
+  
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: ${CONTAINER_NAME}
+    volumes:
+      - ./:/app:cached
+    working_dir: /app
+    env_file:
+      - .env
+    ports:
+      - 127.0.0.1:${PORT}:8501
+    tty: true
