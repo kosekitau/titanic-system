@@ -1,6 +1,6 @@
 import pytest
 
-from src import app
+from src.app import app
 
 
 @pytest.fixture
@@ -11,7 +11,7 @@ def client():
 
 
 class Test_Flask:
-    def test_print(self):
+    def test_print(self, client):
         response = client.get("/")
-        assert response.status.code == 200
+        assert response.status_code == 200
         assert response.data.decode("utf-8") == "Hello World"
