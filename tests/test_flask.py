@@ -19,5 +19,5 @@ class Test_Flask:
     def test_jinja_render(self, client):
         response = client.get("/hello")
         html_content = response.data.decode("utf-8")
-        assert html_content == "Hello Jinja2"
+        assert "Hello Jinja2" in html_content
         assert "<h1>" in html_content
