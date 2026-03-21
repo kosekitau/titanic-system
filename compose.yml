@@ -5,6 +5,16 @@ services:
       - "8080:8080"
     restart: always
   
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: my_db
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - "3306:3306"
+
   app:
     build:
       context: ./
@@ -12,9 +22,14 @@ services:
     container_name: ${CONTAINER_NAME}
     volumes:
       - ./:/app:cached
+    environment:
+      # アプリ内やAlembicで使う接続URL
+      DATABASE_URL: "mysql+pymysql://root:password@db/my_db"
     working_dir: /app
     env_file:
       - .env
     ports:
       - 127.0.0.1:${PORT}:8501
     tty: true
+    depends_on:
+      - db
