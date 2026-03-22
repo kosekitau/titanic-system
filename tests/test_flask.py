@@ -25,19 +25,19 @@ class Test_Flask:
     def test_register_data(self, client):
         response = client.post(
             "/registration",
-            # data={
-            #     "id": 1,
-            #     "pclass": 1,
-            #     "sex": "male",
-            #     "age": 20,
-            #     "slibSp": 1,
-            #     "parch": 1,
-            #     "ticket": "113803",
-            #     "fare": 7.25,
-            #     "cabin": "G6",
-            #     "embarked": "S",
-            # },
-            data={"id": 1},
+            data={
+                "id": 1,
+                "pclass": 1,
+                "sex": "male",
+                "age": 20,
+                "slibSp": 1,
+                "parch": 1,
+                "ticket": "113803",
+                "fare": 7.25,
+                "cabin": "G6",
+                "embarked": "S",
+            },
             follow_redirects=True,
         )
-        assert response.data.decode("utf-8") == "Registration Successful"
+        print(response.data.decode("utf-8"))
+        assert response.data.decode("utf-8") == "Registration Successful id:1"
