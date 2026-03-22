@@ -10,6 +10,10 @@
     - alemmbic revisionを実行する。その後alembic upgradeする。
 
 
-webコンテナとdbコンテナの接続
-- dbコンテナの立ち上がりが完了する前に接続しに行って繋がらなくて終了ということがある。
-- compose.ymlにhealthcheckを書くで対応できそう。
+- webコンテナとdbコンテナの接続
+  - dbコンテナの立ち上がりが完了する前に接続しに行って繋がらなくて終了ということがある。
+  - compose.ymlにhealthcheckを書くで対応できそう。
+
+- DB
+  - トランザクションは挿入やアップデートの処理をひとまとめにしたもの。
+  - SQLAlchemyのセッションは処理を一時的に貯めるもの、rollbackとかcommitで確定してトランザクションが実行されるのかも。
