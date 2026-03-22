@@ -4,3 +4,5 @@ pytest-cov
 tox
 flask
 alembic
+sqlalchemy
+psycopg2-binary

@@ -6,14 +6,20 @@ services:
     restart: always
   
   db:
-    image: mysql:8.0
-    container_name: mysql_db
+    image: postgres:15
+    container_name: postgres_db
     restart: always
     environment:
-      MYSQL_DATABASE: my_db
-      MYSQL_ROOT_PASSWORD: password
+      POSTGRES_DB: my_db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
     ports:
       - "3306:3306"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d my_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   app:
     build:
@@ -24,7 +30,7 @@ services:
       - ./:/app:cached
     environment:
       # アプリ内やAlembicで使う接続URL
-      DATABASE_URL: "mysql+pymysql://root:password@db/my_db"
+      DATABASE_URL: "postgresql://user:password@db/my_db"
     working_dir: /app
     env_file:
       - .env
@@ -32,4 +38,5 @@ services:
       - 127.0.0.1:${PORT}:8501
     tty: true
     depends_on:
-      - db
+      db:
+        condition: service_healthy
