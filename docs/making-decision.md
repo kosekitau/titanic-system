@@ -11,5 +11,5 @@
   - まだどういう構成になるか分からないため。それより欲しい機能やtodo、とりあえずflask動かすところから小さくやりたいため。
 
 
-##20260321
-- FlaskでHello Worldはできたので、次はとりあえずDBが動かせるようにする。compose.ymlにδbのコンテナとappのコンテナがそこに繋げられるようにして、alembic.ini を書いて、alembic init migrations できるようにする。
+## 20260321
+- FlaskでHello Worldはできたので、次はとりあえずDBが動かせるようにする。
