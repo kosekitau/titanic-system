@@ -1,6 +1,12 @@
+import os
+
 import pytest
+from sqlalchemy import create_engine
+from sqlalchemy.orm import Session, sessionmaker, scoped_session, declarative_base
 
 from src.app import app
+from src.models import Person
+from src.database import engine, Base, db_session
 
 
 @pytest.fixture
@@ -8,6 +14,25 @@ def client():
     app.config["TESTING"] = True
     with app.test_client() as client:
         yield client
+
+
+@pytest.fixture
+def rollback_session():
+    engine = create_engine(os.environ["DATABASE_URL"])
+    session = Session(bind=engine)
+    yield session
+    session.rollback()
+    session.close()
+
+
+@pytest.fixture
+def all_drop_client():
+    Base.metadata.create_all(bind=engine)
+    app.config["TESTING"] = True
+    with app.test_client() as client:
+        yield client
+    db_session.remove()
+    Base.metadata.drop_all(bind=engine)
 
 
 class Test_Flask:
@@ -41,3 +66,24 @@ class Test_Flask:
         )
         print(response.data.decode("utf-8"))
         assert response.data.decode("utf-8") == "Registration Successful id:1"
+
+    def test_resister_data_to_DB(self, all_drop_client):
+        response = all_drop_client.post(
+            "/registration",
+            data={
+                "id": 1,
+                "pclass": 1,
+                "sex": "male",
+                "age": 20,
+                "slibSp": 1,
+                "parch": 1,
+                "ticket": "113803",
+                "fare": 7.25,
+                "cabin": "G6",
+                "embarked": "S",
+            },
+            follow_redirects=True,
+        )
+
+        result = db_session.query(Person).first()
+        assert result.ticket == "113803"
