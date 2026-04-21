@@ -2,7 +2,7 @@ import os
 
 import pytest
 from sqlalchemy import create_engine
-from sqlalchemy.orm import Session, sessionmaker, scoped_session, declarative_base
+from sqlalchemy.orm import Session
 
 from src.app import app
 from src.models import Person
@@ -51,7 +51,6 @@ class Test_Flask:
         response = client.post(
             "/registration",
             data={
-                "id": 1,
                 "pclass": 1,
                 "sex": "male",
                 "age": 20,
@@ -71,7 +70,6 @@ class Test_Flask:
         response = all_drop_client.post(
             "/registration",
             data={
-                "id": 1,
                 "pclass": 1,
                 "sex": "male",
                 "age": 20,

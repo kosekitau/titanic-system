@@ -1,5 +1,9 @@
 from flask import Flask, request, render_template
 
+from .database import db_session
+from .models import Person
+
+
 app = Flask(__name__)
 
 
@@ -13,11 +17,18 @@ def hello_jinja():
     return render_template("hello.html", title="HELLO JINJA2")
 
 
+@app.teardown_appcontext
+def shutdown_session(exception=None):
+    db_session.remove()
+
+
 @app.route("/registration", methods=["GET", "POST"])
 def registration():
     if request.method == "POST":
         id = request.form["id"]
-        # pclass=1, sex="male", age=20, slibSp=1, parch=1, ticket="113803", fare=7.25, cabin="G6", embarked="S"
+        person = Person(**request.form.to_dict())
+        db_session.add(person)
+        db_session.commit()
         return f"Registration Successful id:{id}"
     return render_template("registration.html")
 
