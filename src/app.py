@@ -25,11 +25,10 @@ def shutdown_session(exception=None):
 @app.route("/registration", methods=["GET", "POST"])
 def registration():
     if request.method == "POST":
-        id = request.form["id"]
         person = Person(**request.form.to_dict())
         db_session.add(person)
         db_session.commit()
-        return f"Registration Successful id:{id}"
+        return f"Registration Successful"
     return render_template("registration.html")
 
 

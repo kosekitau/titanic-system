@@ -47,25 +47,6 @@ class Test_Flask:
         assert "Hello Jinja2" in html_content
         assert "<h1>" in html_content
 
-    def test_register_data(self, client):
-        response = client.post(
-            "/registration",
-            data={
-                "pclass": 1,
-                "sex": "male",
-                "age": 20,
-                "slibSp": 1,
-                "parch": 1,
-                "ticket": "113803",
-                "fare": 7.25,
-                "cabin": "G6",
-                "embarked": "S",
-            },
-            follow_redirects=True,
-        )
-        print(response.data.decode("utf-8"))
-        assert response.data.decode("utf-8") == "Registration Successful id:1"
-
     def test_resister_data_to_DB(self, all_drop_client):
         response = all_drop_client.post(
             "/registration",
@@ -82,6 +63,6 @@ class Test_Flask:
             },
             follow_redirects=True,
         )
-
+        assert "Registration Successful" in response.data.decode("utf-8")
         result = db_session.query(Person).first()
         assert result.ticket == "113803"
