@@ -17,3 +17,6 @@
 - DB
   - トランザクションは挿入やアップデートの処理をひとまとめにしたもの。
   - SQLAlchemyのセッションは処理を一時的に貯めるもの、rollbackとかcommitで確定してトランザクションが実行されるのかも。
+
+- pip 
+  - pip freezeで環境のライブラリ情報を吐き出せる。ライブラリを追加してimageを新しくbuildしたい時、コンテナに入ってpip installしてfreezeすると、依存関係あるライブラリもrequirements.txtに書き出せてよさそう。
