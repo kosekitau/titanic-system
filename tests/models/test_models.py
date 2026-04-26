@@ -2,23 +2,16 @@ import os
 import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
-
 from src.models import Person
 
 
 @pytest.fixture
 def rollback_session():
-    # connection = create_engine(os.environ["DATABASE_URL"]).connect()
-    # transaction = connection.begin()
-    # session = Session(bind=transaction)
     engine = create_engine(os.environ["DATABASE_URL"])
     session = Session(bind=engine)
     yield session
     session.rollback()
     session.close()
-    # ロールバックして入れたデータを消し去る
-    # transaction.rollback()
-    # connection.close()
 
 
 class Test_DB:

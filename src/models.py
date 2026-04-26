@@ -6,7 +6,7 @@ Base = declarative_base()
 
 class Person(Base):
     __tablename__ = "persons"
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     pclass = Column(Integer)
     sex = Column(String(255))
     age = Column(Integer)
