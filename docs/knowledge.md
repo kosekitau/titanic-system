@@ -20,3 +20,6 @@
 
 - pip 
   - pip freezeで環境のライブラリ情報を吐き出せる。ライブラリを追加してimageを新しくbuildしたい時、コンテナに入ってpip installしてfreezeすると、依存関係あるライブラリもrequirements.txtに書き出せてよさそう。
+
+- selenium
+  - 別コンテナからflask立ち上げたコンテナにアクセスするときは、python app.pyしておかないと空いてない

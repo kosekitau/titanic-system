@@ -15,8 +15,8 @@ def driver():
 
 class Test_selenium:
     def test_hello(self, driver):
-        url = "http://app:8501"
+        url = "http://app:8501/hello"
         driver.get(url)
         assert driver.current_url == url
-        page_h1_title = driver.find_element(by=By.TAG_NAME, value="h1").text
-        assert "Hello Jinja2" in page_h1_title
+        page_h1 = driver.find_element(by=By.TAG_NAME, value="h1").text
+        assert "Hello Jinja2" in page_h1
