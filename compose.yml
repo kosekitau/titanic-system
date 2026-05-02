@@ -35,7 +35,7 @@ services:
     env_file:
       - .env
     ports:
-      - 127.0.0.1:${PORT}:8501
+      - ${PORT}:8501
     tty: true
     depends_on:
       db:
@@ -43,17 +43,22 @@ services:
 
   e2e:
     depends_on:
-      - db
-      - app
-      - selenium
+      db:
+        condition: service_healthy
+      app:
+        condition: service_started
+      selenium:
+        condition: service_started
     build: .
     init: true
     stdin_open: true
     tty: true
     volumes:
-      - ./:/app:cached
+      - ./:/e2e:cached
     environment:
       DATABASE_URL: "postgresql://user:password@db/my_db"
+    entrypoint: sh /e2e/docker-wait-selenium.sh
+
 
   selenium:
     image: seleniarm/standalone-chromium:4.0.0-beta-1-20210215

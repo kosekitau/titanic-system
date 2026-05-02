@@ -3,7 +3,6 @@ from flask import Flask, request, render_template
 from .database import db_session
 from .models import Person
 
-
 app = Flask(__name__)
 
 
@@ -28,9 +27,9 @@ def registration():
         person = Person(**request.form.to_dict())
         db_session.add(person)
         db_session.commit()
-        return f"Registration Successful"
+        return "Registration Successful"
     return render_template("registration.html")
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=8501, debug=True)
