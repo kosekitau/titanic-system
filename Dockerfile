@@ -3,7 +3,7 @@ FROM python:3.12-bookworm
 # パッケージのインストール
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
-        ca-certificates curl fonts-ipafont-gothic gcc git locales sudo tmux tzdata vim zsh && \
+        ca-certificates curl fonts-ipafont-gothic gcc git locales sudo tmux tzdata vim zsh wait-for-it && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -18,3 +18,4 @@ ENV TZ=Asia/Tokyo
 WORKDIR /app
 COPY ./ ./
 RUN pip install -r requirements.txt
+CMD ["python", "src/app.py"]

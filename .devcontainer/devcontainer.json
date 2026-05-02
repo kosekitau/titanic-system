@@ -1,8 +1,8 @@
 {
   "name": "Existing Docker Compose (Extend)",
   "dockerComposeFile": ["../compose.yml"],
-  "service": "app",
-  "workspaceFolder": "/app",
+  "service": "e2e",
+  "workspaceFolder": "/e2e",
   "shutdownAction": "stopCompose",
   "overrideCommand": true,
   "customizations": {
