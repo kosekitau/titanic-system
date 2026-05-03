@@ -2,6 +2,7 @@ from flask import Flask, request, render_template
 
 from src.database import db_session
 from src.models import Person
+from src.ai_interface import ai_pipeline
 
 app = Flask(__name__)
 
@@ -33,7 +34,10 @@ def registration():
 
 @app.route("/prediction", methods=["GET", "POST"])
 def prediction():
-    return "Prediction Result Alive"
+    result = ""
+    if request.method == "POST":
+        result = ai_pipeline(request.form.to_dict())
+    return f"Prediction Result {result}"
 
 
 if __name__ == "__main__":
