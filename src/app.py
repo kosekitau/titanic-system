@@ -1,7 +1,8 @@
 from flask import Flask, request, render_template
 
-from database import db_session
-from models import Person
+from src.database import db_session
+from src.models import Person
+from src.ai_interface import ai_pipeline
 
 app = Flask(__name__)
 
@@ -29,6 +30,14 @@ def registration():
         db_session.commit()
         return "Registration Successful"
     return render_template("registration.html")
+
+
+@app.route("/prediction", methods=["GET", "POST"])
+def prediction():
+    result = ""
+    if request.method == "POST":
+        result = ai_pipeline(request.form.to_dict())
+    return f"Prediction Result {result}"
 
 
 if __name__ == "__main__":

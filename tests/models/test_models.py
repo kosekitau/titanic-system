@@ -17,7 +17,7 @@ def rollback_session():
 class Test_DB:
     def test_input_data(self, rollback_session):
         person = Person(
-            id=1, pclass=1, sex="male", age=20, slibSp=1, parch=1, ticket="113803", fare=7.25, cabin="G6", embarked="S"
+            pclass=1, sex="male", age=20, slibSp=1, parch=1, ticket="113803", fare=7.25, cabin="G6", embarked="S"
         )
         rollback_session.add(person)
         rollback_session.flush()
