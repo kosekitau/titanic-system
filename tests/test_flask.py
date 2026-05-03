@@ -66,3 +66,21 @@ class Test_Flask:
         assert "Registration Successful" in response.data.decode("utf-8")
         result = db_session.query(Person).first()
         assert result.ticket == "113803"
+
+    def test_prediction(self, all_drop_client):
+        response = all_drop_client.post(
+            "/prediction",
+            data={
+                "pclass": 1,
+                "sex": "male",
+                "age": 20,
+                "slibSp": 1,
+                "parch": 1,
+                "ticket": "113803",
+                "fare": 7.25,
+                "cabin": "G6",
+                "embarked": "S",
+            },
+            follow_redirects=True,
+        )
+        assert "Prediction Result" in response.data.decode("utf-8")

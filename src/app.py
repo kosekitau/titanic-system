@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template
 
-from database import db_session
-from models import Person
+from src.database import db_session
+from src.models import Person
 
 app = Flask(__name__)
 
