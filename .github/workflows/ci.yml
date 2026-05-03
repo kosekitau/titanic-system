@@ -24,4 +24,6 @@ jobs:
       - name: Build and run dev container task
         uses: devcontainers/ci@v0.3
         with:
+          imageName: ci-container
+          push: never
           runCmd: pytest -vv -s tests/system/
