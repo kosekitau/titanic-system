@@ -67,8 +67,8 @@ class Test_Flask:
         result = db_session.query(Person).first()
         assert result.ticket == "113803"
 
-    def test_prediction(self, all_drop_client):
-        response = all_drop_client.post(
+    def test_prediction(self, client):
+        response = client.post(
             "/prediction",
             data={
                 "pclass": 1,

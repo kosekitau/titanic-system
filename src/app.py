@@ -31,5 +31,10 @@ def registration():
     return render_template("registration.html")
 
 
+@app.route("/prediction", methods=["GET", "POST"])
+def prediction():
+    return "Prediction Result Alive"
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8501, debug=True)
