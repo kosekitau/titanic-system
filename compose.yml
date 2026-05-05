@@ -29,6 +29,7 @@ services:
     volumes:
       - ./:/app:cached
     environment:
+      PYTHONPATH: /app
       # アプリ内やAlembicで使う接続URL
       DATABASE_URL: "postgresql://user:password@db/my_db"
     working_dir: /app
@@ -56,6 +57,7 @@ services:
     volumes:
       - ./:/e2e:cached
     environment:
+      PYTHONPATH: /e2e
       DATABASE_URL: "postgresql://user:password@db/my_db"
     entrypoint: sh /e2e/docker-wait-selenium.sh
 
